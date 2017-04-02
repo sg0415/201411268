@@ -1,0 +1,225 @@
+@import url("http://fonts.googleapis.com/earlyaccess/jejugothic.css");
+
+* {
+	margin : 0;
+	padding : 0;
+	font-family: "Jeju Gothic", serif;
+}
+
+.page{
+
+}
+header {
+	background-color : white;
+	height : 60px;
+	padding : 0 calc(100%/7);
+	line-height : 50px;
+	align-content: center;
+	top:0;
+	right:0;
+	left:0;
+	position : fixed;
+}
+
+.top-nav {
+	float : right;
+
+
+}
+
+.top-nav li {
+	height:50px;
+	display: inline-block;
+}
+a {
+	text-decoration: none;
+}
+
+a.brand {
+	color : #846c63;
+	font-size : 24px;
+	line-height : 10px;
+	text-align: center;
+	top:-20%;
+	position: relative;
+
+
+}
+
+.top-nav li a {
+	color : #dddddd;
+	font-size : 0.8em;
+	padding : 10px 10px;
+}
+
+
+.top-nav :hover {
+	background-color : #bdb1ad;
+}
+
+.joinadbeus{
+	display : inline-block;
+	color:white;
+	padding : 10px 10px;
+	border-radius : 3px;
+	background-color: #86a8a8;
+}
+
+.joinadbeus a:hover{
+	display : inline-block;
+	color:white;
+	border-radius : 3px;
+
+	background-color: :#e0bb8e;
+}
+
+
+
+.second-left {
+	display:inline-block;
+	float: left;
+
+}
+
+.second-right {
+	display:inline-block;
+	float : right;
+}
+
+
+
+
+footer {
+	background-color : #f1edea;
+	background-position : bottom;
+	background-repeat : no-repeat;
+	padding-bottom : 280px;
+}
+
+.footer-bottom {
+	background-color: #e2dedc;
+	text-align : left;
+	color : white;
+	font-size : 12px;
+	width : 60%;
+	margin : 20px auto 0 auto;
+}
+
+.footer-mid {
+	border-top : 1px solid rgba(170, 215, 241, 0.2);
+	border-bottom : 1px solid rgba(170, 215, 241, 0.2);
+	text-align : center;
+	padding : 10px 0;
+}
+
+
+.footer-mid ul li{
+	display : inline-block;
+	margin : 5px;
+	list-style-type : none;
+	color : white;
+	font-size : 14px;
+	cursor : pointer;
+}
+
+.footer-menu {
+	width : calc(100%/5); /* 20% */
+	float : left;  /*세로 영역을 가로로 주기 위해*/
+}
+.footer-menu p {
+	color : #709ccd;
+	font-size : 16px;
+	margin-bottom : 15px;
+	margin-top : 0;
+	text-transform : uppercase;
+}
+
+
+.footer-menu ul {
+	margin-bottom : 15px;
+}
+
+.footer-menu ul li {
+	color : white;
+	margin : 5px;
+	list-style-type : none;
+	font-size : 14px;
+	cursor : pointer;
+}
+
+.first-table > tbody tr td{
+	padding : 10px;
+}
+
+.first-table > tbody tr td:first-child{
+	color : red;
+}
+
+
+.second-table > tbody tr td{
+	padding : 10px;
+}
+.footer-top {
+
+	padding : 0 calc(100%/7);
+
+	min-height : 260px;
+	padding-top : 80px;
+	background-repeat : no-repeat;
+	background-position : 20px 80px;
+	background-size : 80px 80px;
+}
+
+.container {
+		margin-top:50px;
+
+		padding : 0 calc(100%/7);
+
+	background-color : #f6f4f1;
+	background-position : -150px 20px;
+	background-repeat : no-repeat;
+	background-size : 500px;
+	padding-top : 40px;
+}
+
+.col1{
+	padding : 1em;
+	box-sizing : border-box;
+	width: 25%;
+	color :red;
+}
+
+
+
+.c3 {
+	width : 25%;
+	color : red;
+	float : left;
+}
+
+.first-container:after {
+	content : " "; 
+	display : table;
+	clear : both; 
+}
+.second-container:after {
+	content : " "; 
+	display : table;
+	clear : both; 
+}
+
+
+a.messageup {
+	display : inline-block;
+	height: 36px;
+	width : 95px;
+	background-color : #0084ff;
+	border-radius : 5px;
+	text-align : center;
+	line-height : 36px;
+
+	position : absolute;
+	top : 50%;
+	right : 24px;
+	transform : translateY(-50%);
+}
