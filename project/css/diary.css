@@ -1,0 +1,64 @@
+<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			body{
+				padding-top:50px;
+			}
+
+			#form-group{
+				
+				background-color: #FFD8D8;
+			}
+			#btnWrite, #btnClose, #btnEdit, #btnDelete{
+				margin : 10px 0px 10px 15px;
+			}
+
+			.wing1{
+				background-color:#FFD8D8;
+				display: none;
+
+			}
+			.wing2{
+				padding :10px;
+				height:100%;
+			}
+			.wing3{
+				padding : 10px;
+			}
+			.wing4{
+				text-align: center;
+			}
+			.boxWing{
+				margin : 0 auto;
+
+			}
+			.formTitle{
+				margin : 10px 0px 5px 0px;
+			}
+			.formTag{
+				margin : 5px 0px;
+			}
+			.formSearch{
+				margin : 10px 0px;
+			}
+			@media(max-width:991px){
+				.wing1{
+					display: none;
+					height : 300px;
+					overflow : auto;
+				}
+			}
+			@media(min-width:992px){
+				.container {
+					width:992px;
+				}
+
+				.navWrite{
+					visibility:hidden;
+				}
+
+			}
+
+</style>	

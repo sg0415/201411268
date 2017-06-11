@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<script type="text/javascript" src="board/ckeditor/ckeditor.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+		<scrpit src="/fireinit.js"></scrpit>
+		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-storage.js"></script>
+		<link rel = "stylesheet" type="text/css" href="css/mobile.css" media="screen and(max-width:768px)">
+		<link rel = "stylesheet" type="text/css" href="css/diary.css">
+
+		
+	</head>
+<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+<body>
+
+	<div class="container boxbox">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class ="container">
+					<a class="navbar-brand" href="https://test01-5a616.firebaseapp.com/">My Diary</a>
+					<div class="nav-collapse">
+					<ul class="nav pull-right">
+						<li><a class="navbar-brand" id="navWrite" href="#">Write</a></li>
+
+					</div>
+				</div>
+			</div>
+		</nav>
+	    <div class="row boxWing">
+	        <div class="col-xs-12 wing1">
+	        	<form class = "formTitle">
+	        		<div class="input-group">
+	        			<span class="input-group-addon">제목</span>
+	        			<input type="text" class="form-control diaryTitle" placeholder="제목" aria-describedby="basic-addon1">
+	        		</div>
+	        	</form>
+
+				<textarea name="editor1"></textarea>
+					
+				<form class = "formTag">
+					<div class="input-group">
+	        			<span class="input-group-addon">태그 달기</span>
+	        			<input type="text" class="form-control hashTag inputTag" placeholder="태그는 쉼표로 구분합니다" aria-describedby="basic-addon1">
+
+					</div>
+				</form>
+			<button id="btnClose" type="button" class="btn btn-default pull-right">Close</button>
+			<button id="btnWrite" type="button" class="btn btn-default pull-right">write</button>
+
+			</div>
+	        <div class="col-xs-12 col-md-4 wing2">
+		        <div class="ssibal"><h3><span class="glyphicon glyphicon-heart" aria-hidden="true>"></span>Search</h3></div>
+		        <p>검색하세요^^</p>
+
+		        <div class="input-group formSearch">
+      				<input type="text" class="form-control inputSearch" placeholder="해시태그입력">
+      				<span class="input-group-btn">
+        				<button class="btn btn-default" id="btnSearch" type="button">search</button>
+      				</span>
+    			</div><!-- /input-group -->
+    			<div class="timeLineSearch">
+				
+    			</div>
+		    	
+		    </div>
+
+	        <div class="col-xs-12 col-md-8 wing3">
+		        <h3><span class="glyphicon glyphicon-heart" aria-hidden="true>"></span> TimeLine</h3>
+		        <div class="timeLine">
+
+		        </div>
+<!--
+		    	<div class="panel panel-success">
+					<div class="panel-heading">다이어리제목입력부분</div>
+					<div class="panel-body"><p>다이어리내용입력부분</p></div>
+				</div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading">제목입력인 부분</div>
+					<div class="panel-body">테스트인부분</div>
+				</div>
+-->
+
+	        </div>
+	        <div class="col-xs-12 wing4">
+	        	<p>my Diary</p>
+	        </div>
+	    </div>
+	  </div>
+
+	  <script>
+	  //https://test01-5a616.firebaseio.com/
+	   var config = {
+	    apiKey: "apiKey",
+	    authDomain: "projectId.firebaseapp.com",
+	    databaseURL: "https://test01-5a616.firebaseio.com",
+	    storageBucket: "bucket.appspot.com"
+	  	};
+	 	 firebase.initializeApp(config);
+
+	  var database = firebase.database();
+
+
+		$(document).ready(function(){
+			//에디터연결
+            CKEDITOR.replace( 'editor1', {
+
+				filebrowserBrowseUrl: 'board/ckfinder/ckfinder.html',
+				filebrowserImageBrowseUrl: 'board/ckfinder/ckfinder.html?type=Images',
+				filebrowserFlashBrowseUrl: 'board/ckfinder/ckfinder.html?type=Flash',
+				filebrowserUploadUrl: 'board/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+				filebrowserImageUploadUrl: 'board/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+				filebrowserFlashUploadUrl: 'board/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+            });
+
+			//nav-write버튼 클릭시 에디터오픈
+            $('#navWrite').click(function(){
+            	$('.wing1').css('display','inline');
+            });
+
+            //close버튼 클릭시 에디터 닫고 내용 초기화
+            $('#btnClose').click(function(){
+            	$('.wing1').css('display','none');
+            	$(".diaryTitle").val("");
+            	$(".inputTag").val("");
+				CKEDITOR.instances.editor1.setData("");
+            });
+
+            //에디터의 write 클릭시 글 등록
+			$('#btnWrite').click(function(){
+				var diaryContents = CKEDITOR.instances.editor1.getData();
+				var diaryTitle = $('.diaryTitle').val();
+				var today = new Date();
+
+				var diaryDate = (today.getFullYear()+"년"+(today.getMonth()+1)+"월"+today.getDate()+"일"+today.getHours()+"시"+today.getMinutes()+"분");
+
+				 //해시태그 공백 제거
+	             //	var str = $('.inputTag').val();
+	           	var res = $('.inputTag').val().split(" ");
+            	var tagList ="";
+            	for(var i = 0; i < res.length; i++){
+            		tagList += res[i];
+            	}
+            	//입력받은 해시태그를 쉼표로 구분
+            	//final : 해시태그를 쉼표로 split한 배열
+            	//tagList : 공백만 제거
+
+            	var final = tagList.split(",");
+				
+				firebase.database().ref('/myDiary').push({
+					"title" : diaryTitle,
+					"contents" : diaryContents,
+					"date" : diaryDate,
+					"hastag" : tagList
+				});
+				//메모 작성 후 초기화
+				$(".diaryTitle").val("");
+				CKEDITOR.instances.editor1.setData("");
+            	$(".inputTag").val("");
+			});
+
+			//메모로딩
+			firebase.database().ref('/myDiary').on('value', function(snapshot){
+				$(".timeLine").html('<div>로딩하려면 스크롤을 내려주세요!</div>');
+				var numb = 3;
+				var _keys = Object.keys(snapshot.val());
+				var index = _keys.length;
+				var temp = 0;
+				var count = 0;
+				if(count ==0){
+					if(snapshot.val()==null){
+						$(".timeLine").append('<div class="well">저장된 내용이 없습니다</div>');
+					}else if(index <=0){
+						alert("타임라인을 끝까지 읽어왔습니다.");						
+					}
+					else{
+						//메모를 작성순으로 기본 3개까지 표시
+						//스크롤 할 때마다 1개씩 로딩
+						for (var i = index; _keys.length - numb < i; i--){
+							var child = snapshot.child(_keys[(i-1)]).val();
+								//	var appendHTML = '<p>' +child.title+ '</p>';
+			            	var final = child.hastag.split(",");
+
+							var appendHTML =
+							'<div class="panel panel-success">'
+								+'<div class="panel-heading">'+child.title+'</div>'
+								+'<div class="panel-body">'+child.contents+'</br>'+'<p style="text-align:right">'+child.date+'</p>'
+								+'<p>태그 : '+final+'</p>'
+								+'<button id="btnDelete" type="button" class="btn btn-default pull-right">Delete</button>'
+								+'<button id="btnEdit" type="button" class="btn btn-default pull-right">Edit</button>'
+								+'</div>'
+
+							+'</div>';
+							$(".timeLine").append(appendHTML);
+							temp = i;
+						}
+					}
+					index = temp-1;
+					numb++;
+					count++;
+				}
+				//스크롤
+				$(window).scroll(function(){
+					var scrollHeight=$(window).scrollTop()+$(window).height();
+					var documentHeight = $(document).height();
+					if(scrollHeight +1 >= documentHeight){
+						if(snapshot.val()==null){
+							$(".timeLine").append('<div class="well">저장된 내용이 없습니다</div>');
+						}else if(index <=0){
+
+						}
+						else{
+							//메모를 작성순으로 기본 3개까지 표시
+							//스크롤 할 때마다 1개씩 로딩
+							for (var i = index; _keys.length - numb < i; i--){
+								var child = snapshot.child(_keys[(i-1)]).val();
+
+				            	//var final = child.hastag.split(",");
+								var appendHTML =
+								'<div class="panel panel-success">'
+									+'<div class="panel-heading">'+child.title+'</div>'
+									+'<div class="panel-body">'+child.contents+'</br>'+'<p style="text-align:right">'+child.date+'</p>'
+									+'<p>태그 : '+child.hastag+'</p>'									
+									+'<button id="btnDelete" type="button" class="btn btn-default pull-right">Delete</button>'
+									+'<button id="btnEdit" type="button" class="btn btn-default pull-right">Edit</button>'
+									+'</div>'
+
+								+'</div>';
+
+								$(".timeLine").append(appendHTML);
+								temp = i;
+							}
+						}
+						index = temp-1;
+						numb++;
+					}else{
+					}
+				});		
+
+	            $('#btnSearch').click(function(){
+	            	$(".timeLineSearch").html("");
+	            	var word = $('.inputSearch').val();
+	            	var hit=0;
+					if(snapshot.val()==null){
+						alert("저장된 내용이 없습니다");
+					}
+					else{
+						for (var i = _keys.length; 0 < i; i--){
+							var child = snapshot.child(_keys[(i-1)]).val();
+							var final = child.hastag.split(",");
+							for(var j = 0; j < final.length; j++){
+								if(word==final[j]){
+									hit++;
+									var appendHTML =
+									'<div class="panel panel-success">'
+										+'<div class="panel-heading">'+child.title+'</div>'
+										+'<div class="panel-body">'+child.contents+'</br>'+'<p style="text-align:right">'+child.date+'</p>'
+										+'<div><p>태그 : '+final+'</p></div>'										
+								//		+'<button id="btnDelete" type="button" class="btn btn-default pull-right">Delete</button>'
+								//		+'<button id="btnEdit" type="button" class="btn btn-default pull-right">Edit</button>'
+										+'</div>'
+									+'</div>'
+									$(".timeLineSearch").append(appendHTML);									
+								}
+							}					
+						}						
+						if(hit ==0){
+							$(".timeLineSearch").append('<div class="well">검색 결과가 없습니다.</div>');	
+						}							
+					}
+	            
+	            });
+
+            	$(".timeLineSearch").click(function(){
+            	$(".timeLineSearch").html("");	
+
+            	});
+
+				$('#btnDelete').click(function(){
+					alert("delete");
+					//firebase.database().ref('/myDiary').child(_key).remove();
+				});
+				
+ 				//메모의 Edit 클릭시 내용수정
+				$('#btnEdit').click(function(){
+					alert("edit");
+					/*
+					//에디터오픈
+		            $('.wing1').css('display','inline');
+
+					var diaryContents = CKEDITOR.instances.editor1.getData();
+					var diaryTitle = $('.diaryTitle').val();
+					var today = new Date();
+
+					var diaryDate = (today.getFullYear()+"년"+(today.getMonth()+1)+"월"+today.getDate()+"일"+today.getHours()+"시"+today.getMinutes()+"분");
+
+					 //해시태그 공백 제거
+		             //	var str = $('.inputTag').val();
+		           	var res = $('.inputTag').val().split(" ");
+	            	var tagList ="";
+	            	for(var i = 0; i < res.length; i++){
+	            		tagList += res[i];
+	            	}
+	            	//입력받은 해시태그를 쉼표로 구분
+	            	//final : 해시태그를 쉼표로 split한 배열
+	            	//tagList : 공백만 제거
+	            	var final = tagList.split(",");
+
+					var dir = "myDiary";
+					
+					var new_memo = CKEDITOR.instances.editor1.getData();
+					/*
+					firebase.database().ref('/myDiary').push({
+						"title" : diaryTitle,
+						"contents" : diaryContents,
+						"date" : diaryDate,
+						"hastag" : tagList
+					});
+					*/
+
+				});
+			});
+
+/*
+			$.ajax({
+				url : "https://test01-5a616.firebaseio.com/myDiary.json",
+				method : "GET",
+				success : function(data){
+					//$('.wing3').html(printObj(data));
+				}
+			});
+*/
+		});	
+		</script>
+	  </script>
+</body>
+</html>
